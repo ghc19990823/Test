@@ -1,7 +1,6 @@
 package ghctest.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,8 +13,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -33,14 +30,6 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 
     @Override
     public IPage<WorkOrder> searchOrders(int pageNum, int pageSize) {
-/*        QueryWrapper<WorkOrder> queryWrapper = new QueryWrapper<>();
-        if (title != null && !title.isEmpty()) {
-            queryWrapper.like("title", title);
-        }
-        if (orderType != null) {
-            queryWrapper.eq("order_type", orderType);
-        }*/
-        /*return this.page(new Page<>(pageNum, pageSize), queryWrapper);*/
         return this.page(new Page<>(pageNum, pageSize));
     }
 
@@ -73,9 +62,6 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
     @Transactional
     @Override
     public boolean save(WorkOrder workOrder) {
-/*        LambdaQueryWrapper<WorkOrder> wrapper1 = Wrappers.lambdaQuery();
-        wrapper1.eq(WorkOrder::getOrderType,workOrder.getOrderType());
-        Long aLong1 = workOrderMapper.selectCount(wrapper1);*/
         LambdaQueryWrapper<WorkOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(WorkOrder::getOrderNo,workOrder.getOrderNo());
         Long aLong = workOrderMapper.selectCount(wrapper);
@@ -93,12 +79,8 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
     @Override
     public boolean updateById(WorkOrder workOrder) {
         LambdaQueryWrapper<WorkOrder> wrapper = Wrappers.lambdaQuery();
-/*        LambdaQueryWrapper<WorkOrder> wrapper1 = Wrappers.lambdaQuery();
-        wrapper1.eq(WorkOrder::getOrderType,workOrder.getOrderType());
-        Long aLong1 = workOrderMapper.selectCount(wrapper1);*/
         wrapper.eq(WorkOrder::getOrderNo,workOrder.getOrderNo());
         Long aLong = workOrderMapper.selectCount(wrapper);
-/*        log.info(String.valueOf(aLong2));*/
         if (aLong != 0 && workOrder.getId() == null  && (workOrder.getOrderType() == 0 || workOrder.getOrderType() == 1 || workOrder.getOrderType() == 3)
                 && workOrder.getOrderNo() != null
                 && workOrder.getOrderType() != null
