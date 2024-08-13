@@ -1,0 +1,19 @@
+# 项目端口
+server:
+  port: 8082
+
+# 连接数据库，数据源：JDBC
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/workorderform?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+  #    日期格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
